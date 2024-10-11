@@ -48,8 +48,7 @@ echo "osu_alltoall sizes: $buf_size_B,  $min_msg_size_B, $max_msg_size_B"
 osu_opts="-i 50 -x 10 -T mpi_float -d cuda -M ${buf_size_B} -m ${min_msg_size_B}:${max_msg_size_B}"
 
 # disable udnerperforming implementations
-#tuned_opts="--mca coll_ucc_enable 0 --mca coll_hcoll_enable 0"
-tuned_opts="--mca coll_ucc_enable 0 --mca coll_hcoll_enable 0  --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_alltoall_algorithm 4 --mca coll_tuned_alltoall_algorithm_max_requests 0 --mca coll_base_verbose 100"
+tuned_opts="--mca coll_ucc_enable 0 --mca coll_hcoll_enable 0"
 
 # show the command we ran
 set -x
