@@ -1,0 +1,20 @@
+SLURM_JOB_ID=50125
+SLURM_JOB_NUM_NODES=59
+osu_alltoall sizes: 1933312000,  16000, 32768000
++ mpirun -n 59 --mca pml ucx --mca osc ucx --mca spml ucx --mca coll_ucc_enable 0 --mca coll_hcoll_enable 0 --mca coll_tuned_priority 100 --map-by ppr:1:package:PE=72 --bind-to core osu_alltoall -i 50 -x 10 -T mpi_float -d cuda -M 1933312000 -m 16000:32768000
+
+# OSU MPI-CUDA All-to-All Personalized Exchange Latency Test v7.4
+# Datatype: MPI_FLOAT.
+# Size       Avg Latency(us)
+16000                  67.36
+32000                  89.26
+64000                 132.71
+128000                231.28
+256000                437.47
+512000                829.66
+1024000              1604.27
+2048000              3218.59
+4096000              6185.89
+8192000             11419.74
+16384000            21771.30
+32768000            42687.22
