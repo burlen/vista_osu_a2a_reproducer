@@ -1,7 +1,7 @@
 # OSU All-to-all TACC Vista Grace-Hopper Reproducer
 Reproduces all-to-all perf drop between 59 and 60 nodes. That started happening after September 15 2024.
 What these scripts do: Runs osu_alltoall twice, once on 59 nodes and the second on 60. 
-A python script `throughput.py` can be used to convert time reported by the OPSU benchmark into a throughput.
+A python script `throughput.py` can be used to convert time reported by the OSU benchmark output into a throughput.
 
 ## Dependencies
 This reprodcuer requires OSU micro benchmarks to be compiled with CUDA support enabled. If you see an unknown command line option error, you have not compiled OSU suite with CUDA features enabled.
