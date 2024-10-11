@@ -16,7 +16,7 @@ $ git clone https://github.com/burlen/vista_osu_a2a_reproducer.git
 $ cd vista_osu_a2a_reproducer
 $ ./sbatch_osu_a2a_vista_gh.sh
 ```
-This will submit 2 jobs and generate 2 files. A python script `throughput.py` can be used to convert time reported by the OPSU benchmark into a throughput. Pass the name of the file on the command line.
+This will submit 2 jobs and generate 2 files. A python script `throughput.py` can be used to convert time reported by the OSU benchmark into a throughput. Pass the name of the file on the command line.
 
 ## Example Results
 After the run the `throughput.py` script can be used to generate a table. Here is for a 59 node run
