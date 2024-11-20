@@ -3,9 +3,12 @@ import sys
 fn = sys.argv[1]
 f = open(fn)
 
-n_ranks = int(fn.split('_')[3][1:])
+part = fn.split('_')[1]
+n_per_node = 2 if part == 'gg' else 1
+n_nodes = int(fn.split('_')[4][1:])
+n_ranks = n_nodes*n_per_node
 
-print('Bi-Directional Throuput %s Num Ranks %d'%(fn,n_ranks))
+print('Bi-Directional Throuput %s Num Ranks %d'%(part.upper(),n_ranks))
 print('Num Ranks, Per-Process Size (KB), Total Size (MB), Time (s), Throughput (GB/s)')
 
 for line in f.readlines():

@@ -1,30 +1,40 @@
-# OSU All-to-all TACC Vista Grace-Hopper Reproducer
-Reproduces all-to-all perf drop between 59 and 60 nodes. That started happening after September 15 2024.
-What these scripts do: Runs osu_alltoall twice, once on 59 nodes and the second on 60. 
-A python script `throughput.py` can be used to convert time reported by the OSU benchmark output into a throughput.
+# OSU All-to-all TACC Vista Reproducer
+Reproduces all-to-all perf drop between 29 and 30 nodes on the Grace-Grace
+partition and 59 and 60 nodes on the Grace-Hopper partition.  What these
+scripts do: Runs `osu_alltoall` twice, once on 59 nodes and the second on 60.
+A python script `throughput.py` can be used to convert time reported by the OSU
+benchmark output into a throughput.
+
+## Work Around
+Setting `UCX_TLS=^dc` resolves the issue.
 
 ## Solution
 We found that setting `export UCX_TLS=^dc` resolved the issue.
 
 ## Dependencies
-This reprodcuer requires OSU micro benchmarks to be compiled with CUDA support enabled. If you see an unknown command line option error, you have not compiled OSU suite with CUDA features enabled.
+This reprodcuer requires OSU micro benchmarks. To run on Grace-Hopper the
+benchmarks need to be compiled likely with CUDA support enabled. If you see an unknown
+command line option error, you have not compiled OSU suite with CUDA features
+enabled.
 
 ## Setup
-Before running edit `osu_a2a_vista_gh.sh` and fix PATH to point to your OSU install. Note: current OSU benchmark install at TACC is not CUDA aware, and  cannot be used.
+Before running edit `osu_a2a_vista_gh.sh` and fix PATH to point to your OSU install.
 
 ## Running
 To run from the login node
 ```
 $ git clone https://github.com/burlen/vista_osu_a2a_reproducer.git
 $ cd vista_osu_a2a_reproducer
-$ ./sbatch_osu_a2a_vista_gh.sh
+$ ./sbatch_osu_a2a_vista_gg.sh
 ```
-This will submit 2 jobs and generate 2 files. A python script `throughput.py` can be used to convert time reported by the OSU benchmark into a throughput. Pass the name of the file on the command line.
+This will submit 2 jobs and generate 2 files. A python script `throughput.py`
+can be used to convert time reported by the OSU benchmark into a throughput.
+Pass the name of the file on the command line.
 
 ## Example Results
-After the run the `throughput.py` script can be used to generate a table. Here is for a 59 node run
+After the run the `throughput.py` script can be used to generate a table. Here is for a 59 node run on Grace-Hopper partition
 ```
-login1.vista(1180)$ python3 throughput.py out_osu_a2a_N59_50125.txt
+login1.vista(1180)$ python3 throughput.py out_gh_osu_a2a_N59_50125.txt
 Bi-Directional Throuput out_osu_a2a_N59_50125.txt Num Ranks 59
 Num Ranks, Per-Process Size (KB), Total Size (MB), Time (s), Throughput (GB/s)
 59, 16, 1.888, 6.736e-05, 28.0285
@@ -40,10 +50,10 @@ Num Ranks, Per-Process Size (KB), Total Size (MB), Time (s), Throughput (GB/s)
 59, 16384, 1933.31, 0.0217713, 88.8009
 59, 32768, 3866.62, 0.0426872, 90.5804
 ```
-And here is for a 60 node run.
+And here is for a G-H partition 60 node run.
 ```
 login1.vista(1182)$ python3 throughput.py out_osu_a2a_N60_50126.txt
-Bi-Directional Throuput out_osu_a2a_N60_50126.txt Num Ranks 60
+Bi-Directional Throuput out_gh_osu_a2a_N60_50126.txt Num Ranks 60
 Num Ranks, Per-Process Size (KB), Total Size (MB), Time (s), Throughput (GB/s)
 60, 16, 1.92, 0.0001047, 18.3381
 60, 32, 3.84, 0.00013793, 27.8402
@@ -59,3 +69,8 @@ Num Ranks, Per-Process Size (KB), Total Size (MB), Time (s), Throughput (GB/s)
 60, 32768, 3932.16, 0.0576565, 68.1998
 ```
 The throughput is expected to be roughly the same between the two runs but is markedly different illustrating the issue.
+
+Update: The work around `UCX_TLS=^dc` solves the issue.
+
+
+
