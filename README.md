@@ -1,12 +1,9 @@
 # OSU All-to-all TACC Vista Reproducer
 Reproduces all-to-all perf drop between 29 and 30 nodes on the Grace-Grace
 partition and 59 and 60 nodes on the Grace-Hopper partition.  What these
-scripts do: Runs `osu_alltoall` twice, once on 59 nodes and the second on 60.
+scripts do: Runs `osu_alltoall` twice, once on 29 (or 59 if GH) nodes and the second on 30 (or 60 if GH).
 A python script `throughput.py` can be used to convert time reported by the OSU
 benchmark output into a throughput.
-
-## Work Around
-Setting `UCX_TLS=^dc` resolves the issue.
 
 ## Solution
 We found that setting `export UCX_TLS=^dc` resolved the issue.
